@@ -7,10 +7,15 @@ namespace App\Helper;
 /** @package App\Helper */
 class Link
 {
-
     public static function getProject(string $x): bool
     {
-        if (!str_contains($x, '.') && is_dir($x)) {
+        $ignore = [
+            'node_modules',
+            'vendor',
+            'src',
+            'public',
+        ];
+        if ($x[0] !== '.' && is_dir($x) && !in_array($x, $ignore)) {
             return true;
         }
         return false;

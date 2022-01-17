@@ -2,11 +2,11 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-$stuff = scandir(__DIR__);
+$itemsInDir = scandir(__DIR__);
 
-$folders = array_filter($stuff, ['App\Helper\Link', 'getProject']);
+$projects = array_filter($itemsInDir, ['App\Helper\Link', 'getProject']);
 
-$folders = array_map(['App\Helper\Link', 'getPathAndName'], $folders);
+$projects = array_map(['App\Helper\Link', 'getPathAndName'], $projects);
 
 ?>
 
@@ -17,7 +17,7 @@ $folders = array_map(['App\Helper\Link', 'getPathAndName'], $folders);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/app.css">
+    <link rel="stylesheet" href="public/styles/app.css">
     <title>NEO.FYI</title>
 </head>
 
@@ -25,16 +25,12 @@ $folders = array_map(['App\Helper\Link', 'getPathAndName'], $folders);
 
     <h1 class="text-2xl mt-3">Welcome to neo.fyi</h1>
     <h2>My hosted projects:</h2>
-    <div class="grid grid-cols-1 gap-2 w-full md:w-auto">
-        <?php foreach ($folders as $site) : ?>
-            <a href="<?= 'https://' . $site['path'] . '.neo.fyi' ?>" class="p-4 bg-slate-50 mx-2 hover:bg-blue-300 md:mx-0 text-center">
-                <div>
-                    <p class="text-xl"><?= $site['name'] ?></p>
-                </div>
-            </a>
-        <?php endforeach; ?>
-    </div>
+    <?php require __DIR__ . '/public/views/project-list.php' ?>
     <p>you can see more projects <a href="https://github.com/neoisrecursive" class="text-red-500 hover:text-blue-500">on my github</a></p>
+    <footer class="fixed bottom-0 left-0 text-center w-full">
+        <p> &copy; Neo Lejondahl 2022;</p>
+        <p>Made with PHP, Composer & Tailwindcss;</p>
+    </footer>
 </body>
 
 </html>
