@@ -1,9 +1,12 @@
 <?php
+
+require __DIR__ . '/vendor/autoload.php';
+
 $stuff = scandir(__DIR__);
 
-$folders = array_filter($stuff, 'getProjects');
+$folders = array_filter($stuff, ['App\Helper\Link', 'getProject']);
 
-$folders = array_map('getPathAndName', $folders);
+$folders = array_map(['App\Helper\Link', 'getPathAndName'], $folders);
 
 ?>
 
