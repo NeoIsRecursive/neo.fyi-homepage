@@ -7,7 +7,17 @@ namespace App\Helper;
 /** @package App\Helper */
 class Link
 {
-    public static function getProject(string $x): bool
+
+    public static function getProjects(string $dir): array
+    {
+        $itemsInDir = scandir($dir);
+        $projects = array_filter($itemsInDir, [Link::class, 'filterProject']);
+        $projects = array_map([Link::class, 'getPathAndName'], $projects);
+        return $projects;
+    }
+
+
+    public static function filterProject(string $x): bool
     {
         $ignore = [
             'node_modules',

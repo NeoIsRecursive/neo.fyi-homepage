@@ -2,11 +2,9 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-$itemsInDir = scandir(__DIR__);
+use App\Helper\Link;
 
-$projects = array_filter($itemsInDir, ['App\Helper\Link', 'getProject']);
-
-$projects = array_map(['App\Helper\Link', 'getPathAndName'], $projects);
+$projects = Link::getProjects(__DIR__);
 
 ?>
 
